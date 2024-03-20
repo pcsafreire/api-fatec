@@ -1,31 +1,32 @@
 package br.com.apifatec.apifatec;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.context.annotation.Bean;
 
-@RestController
+import br.com.apifatec.apifatec.domain.cliente.ClienteRepository;
+import br.com.apifatec.apifatec.entities.Cliente;
+
+
+
 @SpringBootApplication
 public class ApiFatecApplication {
-	
-	@RequestMapping("/")
-	String home() {
-		return "Hello World";
-	}
-	
-	@RequestMapping("/hello")
-	String home2 () {
-		return "Hello World 2";
-	}
-	
-	@RequestMapping("/numero")
-	Integer numero () {
-		return 9;
-	}
+	@Bean
+	public CommandLineRunner run(@Autowired ClienteRepository clienteRepository){
+		return args -> {
+			Cliente cliente = new Cliente();
+			cliente.setNome("Paulo César");
+			cliente.setEmail("paulofatec@fatec.com.jp");
+			cliente.setEndereco("Rua Joao Dois");
+			cliente.setRazaoSocial("Paulo");
 
-	@RequestMapping("/numero/{num}")
-	Integer numero2 (@PathVariable Integer num) {
-		return num;
+			clienteRepository.save(cliente);
+		};
 	}
+	public static void main(String[] args){
+		SpringApplication.run(ApiFatecApplication.class, args);
+	}
+	
 }
