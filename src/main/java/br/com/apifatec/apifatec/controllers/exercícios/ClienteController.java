@@ -25,10 +25,41 @@ public class ClienteController {
 	@Autowired
 	private ClienteService clienteService;
 
+	/*
+		Listar todos clientes cadastrados
+	*/
 	@GetMapping
 	public ResponseEntity<List<Cliente>> listarClientes() {
 		List<Cliente> clientes = clienteService.listarClientes();
 		return new ResponseEntity<>(clientes, HttpStatus.OK);
+	}
+	
+	/*
+		Buscar cliente por Id
+	*/
+	@GetMapping("/{id}")
+	public ResponseEntity<Cliente> encontrarClientePorId(@PathVariable Long id) {
+		Cliente cliente = clienteService.encontrarClientePorId(id);
+		return cliente != null ? new ResponseEntity<>(cliente, HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+	
+	/*
+		Criar novo cliente
+	*/
+	@PostMapping
+	public ResponseEntity<Cliente> salvarCliente(@RequestBody Cliente cliente) {
+		Cliente clienteSalvo = clienteService.salvarCliente(cliente);
+		return new ResponseEntity<>(clienteSalvo, HttpStatus.CREATED);
+	}
+	
+	/*
+		Excluir cliente pelo Id
+	*/
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deletarCliente(@PathVariable Long id) {
+		clienteService.deletarCliente(id);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
 }
