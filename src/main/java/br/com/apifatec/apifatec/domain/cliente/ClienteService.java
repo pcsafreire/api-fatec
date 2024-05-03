@@ -1,11 +1,10 @@
 package br.com.apifatec.apifatec.domain.cliente;
 
-import java.util.List;
-
+import br.com.apifatec.apifatec.entities.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.apifatec.apifatec.entities.Cliente;
+import java.util.List;
 
 @Service
 public class ClienteService {
@@ -33,21 +32,30 @@ public class ClienteService {
 			throw new IllegalArgumentException("Cliente não existe");
 		}	
 		clienteRepository.deleteById(id);
-
 	}
 
-		public Cliente atualizarCliente(Long id, Cliente cliente) {
-			Cliente clienteCadastradoCliente = encontrarClientePorId(id);
+	public Cliente atualizarCliente(Long id, Cliente cliente) {
+		Cliente clienteCadastradoCliente = encontrarClientePorId(id);
 		
-			if (clienteCadastradoCliente == null)
-			{
-				return null;
-			} else {
-				clienteCadastradoCliente.setNome(cliente.getNome());
-				clienteCadastradoCliente.setRazaoSocial(cliente.getRazaoSocial());
-				clienteCadastradoCliente.setEmail(cliente.getEmail());
-				clienteCadastradoCliente.setEndereco(cliente.getEndereco());
-				return clienteRepository.save(clienteCadastradoCliente);
+		if (clienteCadastradoCliente == null)
+		{
+			return null;
+		} else {
+			clienteCadastradoCliente.setNome(cliente.getNome());
+			clienteCadastradoCliente.setRazaoSocial(cliente.getRazaoSocial());
+			clienteCadastradoCliente.setEmail(cliente.getEmail());
+			clienteCadastradoCliente.setEndereco(cliente.getEndereco());
+			return clienteRepository.save(clienteCadastradoCliente);
 		}
 	}
+
+	public List<Cliente> buscarPorNome(String nome) {
+		//Forma 1
+		return clienteRepository.findByNomeContainingIgnoreCase(nome);
+
+		//Forma 2
+		//return clienteRepository.findByNome(nome);
+	}
 }
+
+	
