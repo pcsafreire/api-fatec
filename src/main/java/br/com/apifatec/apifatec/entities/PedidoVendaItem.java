@@ -1,15 +1,9 @@
 package br.com.apifatec.apifatec.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "pedido_venda_item")
@@ -81,5 +75,9 @@ public class PedidoVendaItem {
 
     public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
+    }
+
+    public void setValorTotalItem() {
+        this.valorTotal = new BigDecimal(this.quantidade).multiply(this.valorUnitario);
     }
 }
