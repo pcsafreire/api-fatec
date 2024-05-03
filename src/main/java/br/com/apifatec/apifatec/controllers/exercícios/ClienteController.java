@@ -3,8 +3,6 @@ package br.com.apifatec.apifatec.controllers.exercícios;
 import java.util.List;
 
 import br.com.apifatec.apifatec.domain.cliente.ClienteService;
-//import br.com.apifatec.apifatec.domain.cliente.ClienteMapper;
-//import br.com.apifatec.apifatec.domain.cliente.ClienteDTO;
 import br.com.apifatec.apifatec.entities.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,18 +24,18 @@ public class ClienteController {
 	@Autowired
 	private ClienteService clienteService;
 
-	/*
-		Listar todos clientes cadastrados
-	*/
 	@GetMapping
 	public ResponseEntity<List<Cliente>> listarClientes() {
 		List<Cliente> clientes = clienteService.listarClientes();
 		return new ResponseEntity<>(clientes, HttpStatus.OK);
 	}
 	
-	/*
-		Buscar cliente por Id
-	*/
+	@GetMapping("/buscar-por-nome/{nome}")
+	public ResponseEntity<List<Cliente>> buscarPorNome(@PathVariable String nome) {
+		List<Cliente> clientes = clienteService.buscarPorNome(nome);
+		return new ResponseEntity<>(clientes, HttpStatus.OK);
+	}
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<Cliente> encontrarClientePorId(@PathVariable Long id) {
 		Cliente cliente = clienteService.encontrarClientePorId(id);
@@ -45,18 +43,12 @@ public class ClienteController {
 				: new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 	
-	/*
-		Criar novo cliente
-	*/
-	@PostMapping
+	@PostMapping()
 	public ResponseEntity<Cliente> salvarCliente(@RequestBody Cliente cliente) {
 		Cliente clienteSalvo = clienteService.salvarCliente(cliente);
 		return new ResponseEntity<>(clienteSalvo, HttpStatus.CREATED);
 	}
 	
-	/*
-		Excluir cliente pelo Id
-	*/
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deletarCliente(@PathVariable Long id) {
 		clienteService.deletarCliente(id);
@@ -68,5 +60,4 @@ public class ClienteController {
 		Cliente clienteAtualizado = clienteService.atualizarCliente(id, cliente);
 		return new ResponseEntity<>(clienteAtualizado, HttpStatus.OK);
 	}
-	
 }
