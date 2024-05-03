@@ -1,19 +1,13 @@
 package br.com.apifatec.apifatec.entities;
 
+import br.com.apifatec.apifatec.shared.enums.PedidoVendaStatusEnum;
+
+import jakarta.persistence.*;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "pedido_venda")
@@ -82,8 +76,18 @@ public class PedidoVenda {
         return items;
     }
 
+//    public void setItems(List<PedidoVendaItem> items) {
+//        this.items = items;
+//    }
+
     public void addItem(PedidoVendaItem item) {
         this.items.add(item);
         item.setPedidoVenda(this);
+    }
+
+    public void setTotal() {
+        this.total = this.items.stream()
+                .map(PedidoVendaItem::getValorTotal)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }
