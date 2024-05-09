@@ -1,5 +1,7 @@
 package br.com.apifatec.apifatec.entities;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,7 +21,7 @@ public class Produto {
     private String descricao;
 
     @Column(nullable = false)
-    private double preco;
+    private BigDecimal preco;
 
     @Column(name = "quantidade_estoque", nullable = false)
     private int quantidadeEstoque;
@@ -44,11 +46,11 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public double getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
 
@@ -60,7 +62,7 @@ public class Produto {
         this.quantidadeEstoque = quantidadeEstoque;
     }
 
-    public boolean isAtivo() {
+    public boolean getAtivo() {
         return ativo;
     }
 

@@ -35,7 +35,7 @@ public class ProdutoService {
             produtoCadastrado.setDescricao(produto.getDescricao());
             produtoCadastrado.setPreco(produto.getPreco());
             produtoCadastrado.setQuantidadeEstoque(produto.getQuantidadeEstoque());
-            produtoCadastrado.setAtivo(produto.isAtivo());
+            produtoCadastrado.setAtivo(produto.getAtivo());
             return produtoRepository.save(produtoCadastrado);
         } else {
             return null;

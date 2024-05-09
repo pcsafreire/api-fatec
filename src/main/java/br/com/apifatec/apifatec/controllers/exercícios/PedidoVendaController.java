@@ -1,8 +1,7 @@
 package br.com.apifatec.apifatec.controllers.exercícios;
 
-import br.com.apifatec.apifatec.domain.pedidovenda.PedidoVendaService;
 import br.com.apifatec.apifatec.entities.Cliente;
-
+import br.com.apifatec.apifatec.domain.pedidovenda.PedidoVendaService;
 import java.util.List;
 import java.util.Optional;
 

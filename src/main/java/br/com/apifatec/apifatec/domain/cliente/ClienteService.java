@@ -24,16 +24,15 @@ public class ClienteService {
 	}
 
 	public void deletarCliente(Long id) {
-
 		Cliente cliente = encontrarClientePorId(id);
-
-		if (cliente == null)
-		{
-			throw new IllegalArgumentException("Cliente não existe");
-		}	
+		
+		if(cliente == null)
+			throw new IllegalArgumentException("Cliente nao existe");
+		
+		
 		clienteRepository.deleteById(id);
 	}
-
+	
 	public Cliente atualizarCliente(Long id, Cliente cliente) {
 		Cliente clienteCadastradoCliente = encontrarClientePorId(id);
 		
@@ -57,5 +56,3 @@ public class ClienteService {
 		//return clienteRepository.findByNome(nome);
 	}
 }
-
-	
